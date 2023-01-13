@@ -9,7 +9,7 @@ public class CarPositionGenerator {
 
     public Car updatePosition(Car car) {
         if (statusGenerator.isMoveForward(RANGE_START, RANGE_END, REFERENCE_CONDITION)) {
-            return car.move(TRAVEL_DISTANCE);
+            return car.move(car.carPosition() + TRAVEL_DISTANCE);
         }
         return car;
     }
