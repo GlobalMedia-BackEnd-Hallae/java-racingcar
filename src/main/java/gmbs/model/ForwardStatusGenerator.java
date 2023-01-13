@@ -5,7 +5,7 @@ import java.util.Random;
 public class ForwardStatusGenerator {
     Random randomCarStatus = new Random();
 
-    public int randomCarStatus(int rangeStart, int rangeEnd) {
+    public int randomNumber(int rangeStart, int rangeEnd) {
         if(rangeStart<0 || rangeEnd<0 || rangeStart>rangeEnd) {
             throw new IllegalArgumentException();
         }
@@ -16,6 +16,6 @@ public class ForwardStatusGenerator {
         if (referenceCondition<rangeStart || referenceCondition > rangeEnd) {
             throw new IllegalArgumentException();
         }
-        return randomCarStatus(rangeStart,rangeEnd)<=referenceCondition;
+        return randomNumber(rangeStart,rangeEnd) >= referenceCondition;
     }
 }

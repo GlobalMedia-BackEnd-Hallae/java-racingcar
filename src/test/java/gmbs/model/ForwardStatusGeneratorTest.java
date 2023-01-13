@@ -25,13 +25,13 @@ public class ForwardStatusGeneratorTest {
             expected.add(i);
         }
         for(int i = 0; i< testCase; i ++) {
-            actual.add(statusGenerator.randomCarStatus(rangeStart,rangeEnd));
+            actual.add(statusGenerator.randomNumber(rangeStart,rangeEnd));
         }
         assertThat(actual).isEqualTo(expected);
     }
 
     @ParameterizedTest
-    @DisplayName("기준 이하의 수가 생성되면 false를 반환한다")
+    @DisplayName("기준 이상의 수가 생성되면 true를 반환한다")
     @CsvSource(value = {"0,9,4", "1,5,3"})
     public void isMoveForward(int rangeStart, int rangeEnd, int referenceCondition) {
         float trueCount = 0;
@@ -42,7 +42,7 @@ public class ForwardStatusGeneratorTest {
                 trueCount ++;
             }
         }        float actual = trueCount/testCase;
-        float expected = (float)(referenceCondition+1-rangeStart)/(float)(rangeEnd-rangeStart+1);
+        float expected = (float)(rangeEnd+1-referenceCondition)/(float)(rangeEnd-rangeStart+1);
         assertThat(actual).isCloseTo(expected, Percentage.withPercentage(10));
     }
 
