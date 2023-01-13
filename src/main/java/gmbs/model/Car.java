@@ -7,4 +7,18 @@ public class Car {
     public Car(String name) {
         this.name = name;
     }
+
+    public Car move(int position) {
+        Car car = new Car(this.name);
+        car.position = position;
+        return car;
+    }
+
+    public String carName() {
+        return this.name;
+    }
+
+    public int carPosition() {
+        return this.position;
+    }
 }
