@@ -32,13 +32,14 @@ class InputValidatorTest {
                 Arguments.of(Arrays.asList("name1", "name2", "name3"), true),
                 Arguments.of(Arrays.asList("name1"), true),
                 Arguments.of(Arrays.asList("  "), false),
+                Arguments.of(Arrays.asList(""), false),
                 Arguments.of(Arrays.asList(), false)
         );
     }
 
     @ParameterizedTest
     @DisplayName("주어진 문자열이 자연수인지 확인한다")
-    @CsvSource(value = {"123, true", "12a, false", "-123, false", "0, false"})
+    @CsvSource(value = {"123, true", "12a, false", "-123, false", "0, false", "120, true"})
     void isNaturalNumber(String input, boolean expected) {
         //when
         boolean actual = validator.isNaturalNumber(input);
