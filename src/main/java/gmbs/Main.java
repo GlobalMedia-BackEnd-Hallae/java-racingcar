@@ -1,11 +1,10 @@
 package gmbs;
 
+import gmbs.controller.CarRaceOperator;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
-    }
-
-    public String a() {
-        return "abc";
+        CarRaceOperator op = new CarRaceOperator();
+        op.operateCarRace();
     }
 }
