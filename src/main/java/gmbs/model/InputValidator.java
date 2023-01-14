@@ -11,7 +11,7 @@ public class InputValidator {
         return input.length() > LENGTH_THRESHOLD;
     }
 
-    private boolean isNameBlank(String input) {
+    private boolean hasBlank(String input) {
         return !input.replace(" ", "").equals(input);
     }
 
@@ -19,7 +19,7 @@ public class InputValidator {
         Set<Boolean> invalidNameChecker = new HashSet<>();
         for (String name : inputNames) {
             invalidNameChecker.add(isNameOverflow(name));
-            invalidNameChecker.add(isNameBlank(name));
+            invalidNameChecker.add(hasBlank(name));
         }
         return !invalidNameChecker.contains(true) && !inputNames.isEmpty();
     }
