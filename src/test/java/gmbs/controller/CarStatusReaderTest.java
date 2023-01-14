@@ -14,14 +14,14 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class CarStatusReaderTest {
+public class CarStatusReaderTest {
     private static final CarStatusReader reader = new CarStatusReader();
     private static final CarManager manager = new CarManager();
 
     @ParameterizedTest
     @DisplayName("현재 car의 상태를 hashmap으로 반환한다")
     @MethodSource("generateCarStatus")
-    void currentStatus(List<Car> cars) {
+    public void currentStatus(List<Car> cars) {
         Map<String, Integer> carStatus = reader.readCurrentStatus(cars);
         for (Car car : cars) {
             //when
@@ -32,7 +32,7 @@ class CarStatusReaderTest {
         }
     }
 
-    static Stream<Arguments> generateCarStatus() {
+    private static Stream<Arguments> generateCarStatus() {
         return Stream.of(
                 Arguments.of(manager.createCar(Arrays.asList("name1", "name2", "name3"))),
                 Arguments.of(manager.createCar(Arrays.asList("name1"))),
@@ -43,12 +43,12 @@ class CarStatusReaderTest {
     @ParameterizedTest
     @DisplayName("position이 가장 큰 car의 name을 반환하는지 확인한다")
     @MethodSource("generateCarPositions")
-    void readHeadPositionNames(List<Car> cars, List<String> expected) {
+    public void readHeadPositionNames(List<Car> cars, List<String> expected) {
         List<String> headPositionNames = new ArrayList<>(reader.readHeadPositionNames(cars));
         assertThat(headPositionNames).containsAll(expected);
     }
 
-    static Stream<Arguments> generateCarPositions() {
+    private static Stream<Arguments> generateCarPositions() {
         return Stream.of(
                 Arguments.of(Arrays.asList(new Car("car1").move(1),
                                 new Car("car2").move(2),
