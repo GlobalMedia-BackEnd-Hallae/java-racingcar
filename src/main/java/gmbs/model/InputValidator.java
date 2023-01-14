@@ -20,6 +20,7 @@ public class InputValidator {
         for (String name : inputNames) {
             invalidNameChecker.add(isNameOverflow(name));
             invalidNameChecker.add(hasBlank(name));
+            invalidNameChecker.add(name.isEmpty());
         }
         return !invalidNameChecker.contains(true) && !inputNames.isEmpty();
     }
