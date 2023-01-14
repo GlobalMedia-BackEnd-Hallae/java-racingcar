@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Display {
+
     private String distance(int position) {
         String distanceMark = "-";
         return distanceMark.repeat(position);

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CarManager {
+
     private static final CarPositionGenerator positionGenerator = new CarPositionGenerator();
 
     public List<Car> createCar(List<String> carNames) {

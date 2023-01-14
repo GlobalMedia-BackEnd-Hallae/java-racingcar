@@ -3,6 +3,7 @@ package gmbs.model;
 import java.util.Random;
 
 public class ForwardStatusGenerator {
+
     Random randomCarStatus = new Random();
 
     public int randomNumber(int rangeStart, int rangeEnd) {

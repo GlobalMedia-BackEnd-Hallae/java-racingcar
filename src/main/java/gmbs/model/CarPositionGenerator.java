@@ -1,6 +1,7 @@
 package gmbs.model;
 
 public class CarPositionGenerator {
+
     private static final ForwardStatusGenerator statusGenerator = new ForwardStatusGenerator();
     private static final int TRAVEL_DISTANCE = 1;
     private static final int RANGE_START = 0;

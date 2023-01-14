@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public class CarStatusReader {
+
     private List<String> checkNameByPosition(Car car, int position) {
         List<String> carNames = new ArrayList<>();
         if (car.carPosition() == position) {

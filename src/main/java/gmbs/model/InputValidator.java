@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Set;
 
 public class InputValidator {
+
     private static final int LENGTH_THRESHOLD = 5;
+    private static final String NATURAL_NUMBER_REGULAR_EXPRESSION = "^[0-9]*$";
 
     private boolean isNameOverflow(String input) {
         return input.length() > LENGTH_THRESHOLD;
@@ -26,7 +28,7 @@ public class InputValidator {
     }
 
     public boolean isNaturalNumber(String userRepetitionInput) {
-        if (userRepetitionInput.matches("^[0-9]*$")) {
+        if (userRepetitionInput.matches(NATURAL_NUMBER_REGULAR_EXPRESSION)) {
             return !userRepetitionInput.equals("0");
         }
         return false;

@@ -3,7 +3,6 @@ package gmbs.controller;
 import gmbs.view.Display;
 import gmbs.view.UserInput;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CarRaceOperator {
@@ -13,7 +12,7 @@ public class CarRaceOperator {
     private static final RaceManager raceManager = new RaceManager();
 
     private List<String> scanCarNames() {
-        List<String> carNames = new ArrayList<>();
+        List<String> carNames;
         while (true) {
             try {
                 carNames = inputManager.carNameInput(userInput.userInput());

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RaceManager {
+
     private final Display display = new Display();
     private final CarStatusReader reader = new CarStatusReader();
     private final CarManager manager = new CarManager();
