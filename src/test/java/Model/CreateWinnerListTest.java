@@ -12,7 +12,7 @@ class CreateWinnerListTest {
     private CreateWinnerList createWinnerList = new CreateWinnerList();
 
     @Test
-    @DisplayName("개인 우승자 리스트를 제작할 수 있다.")
+    @DisplayName("개인 우승자 리스트를 알맞게 제작할 수 있다.")
     void canCreateWinnerListTestOfOnly() {
         // given
         List<Car> carClassListOnly = new ArrayList<>();
@@ -31,7 +31,7 @@ class CreateWinnerListTest {
     }
 
     @Test
-    @DisplayName("다수 우승자 리스트를 제작할 수 있다.")
+    @DisplayName("다수 우승자 리스트를 알맞게 제작할 수 있다.")
     void canCreateWinnerListTestOfMany() {
         // given
         List<Car> carClassListMany = new ArrayList<>();
