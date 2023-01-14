@@ -2,17 +2,18 @@ package gmbs.controller;
 
 import gmbs.model.Car;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class CarStatusReader {
-    private Map<String, Integer> readStatusByPosition(Car car, int position) {
-        LinkedHashMap<String, Integer> cars = new LinkedHashMap<>();
+    private List<String> checkNameByPosition(Car car, int position) {
+        List<String> carNames = new ArrayList<>();
         if (car.carPosition() == position) {
-            cars.put(car.carName(), car.carPosition());
+            carNames.add(car.carName());
         }
-        return cars;
+        return carNames;
     }
 
     private int maxPosition(List<Car> cars) {
@@ -31,12 +32,12 @@ public class CarStatusReader {
         return currentStatus;
     }
 
-    public Map<String, Integer> readHeadPosition(List<Car> cars) {
-        LinkedHashMap<String, Integer> headPosition = new LinkedHashMap<>();
+    public List<String> readHeadPositionNames(List<Car> cars) {
+        List<String> carNames = new ArrayList<>();
         int maxPosition = maxPosition(cars);
         for (Car car : cars) {
-            headPosition.putAll(readStatusByPosition(car, maxPosition));
+            carNames.addAll(checkNameByPosition(car, maxPosition));
         }
-        return headPosition;
+        return carNames;
     }
 }

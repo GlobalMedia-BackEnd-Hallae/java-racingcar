@@ -6,8 +6,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -41,14 +41,14 @@ class CarStatusReaderTest {
     }
 
     @ParameterizedTest
-    @DisplayName("position이 가장 큰 car를 hashmap으로 반환한다")
-    @MethodSource("generateCarPosition")
-    void readHeadPosition(List<Car> cars, List<String> expected) {
-        HashMap<String, Integer> winners = new HashMap<>(reader.readHeadPosition(cars));
-        assertThat(winners.keySet()).containsAll(expected);
+    @DisplayName("position이 가장 큰 car의 name을 반환하는지 확인한다")
+    @MethodSource("generateCarPositions")
+    void readHeadPositionNames(List<Car> cars, List<String> expected) {
+        List<String> headPositionNames = new ArrayList<>(reader.readHeadPositionNames(cars));
+        assertThat(headPositionNames).containsAll(expected);
     }
 
-    static Stream<Arguments> generateCarPosition() {
+    static Stream<Arguments> generateCarPositions() {
         return Stream.of(
                 Arguments.of(Arrays.asList(new Car("car1").move(1),
                                 new Car("car2").move(2),
