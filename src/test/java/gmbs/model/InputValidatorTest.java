@@ -30,6 +30,8 @@ class InputValidatorTest {
         return Stream.of(
                 Arguments.of(Arrays.asList("name1", "name2", "name33"), false),
                 Arguments.of(Arrays.asList("name1", "name2", "name3"), true),
+                Arguments.of(Arrays.asList("name1"), true),
+                Arguments.of(Arrays.asList("  "), false),
                 Arguments.of(Arrays.asList(), false)
         );
     }

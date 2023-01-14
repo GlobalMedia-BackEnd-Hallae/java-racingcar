@@ -11,12 +11,17 @@ public class InputValidator {
         return input.length() > LENGTH_THRESHOLD;
     }
 
+    private boolean isNameBlank(String input) {
+        return !input.replace(" ", "").equals(input);
+    }
+
     public boolean isValidNames(List<String> inputNames) {
-        Set<Boolean> nameOverflowChecker = new HashSet<>();
+        Set<Boolean> invalidNameChecker = new HashSet<>();
         for (String name : inputNames) {
-            nameOverflowChecker.add(isNameOverflow(name));
+            invalidNameChecker.add(isNameOverflow(name));
+            invalidNameChecker.add(isNameBlank(name));
         }
-        return !nameOverflowChecker.contains(true) && !inputNames.isEmpty();
+        return !invalidNameChecker.contains(true) && !inputNames.isEmpty();
     }
 
     public boolean isNaturalNumber(String userRepetitionInput) {
