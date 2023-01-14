@@ -2,13 +2,13 @@ package gmbs.controller;
 
 import gmbs.model.Car;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class CarStatusReader {
     private Map<String, Integer> readStatusByPosition(Car car, int position) {
-        HashMap<String, Integer> cars = new HashMap<>();
+        LinkedHashMap<String, Integer> cars = new LinkedHashMap<>();
         if (car.carPosition() == position) {
             cars.put(car.carName(), car.carPosition());
         }
@@ -24,7 +24,7 @@ public class CarStatusReader {
     }
 
     public Map<String, Integer> readCurrentStatus(List<Car> cars) {
-        HashMap<String, Integer> currentStatus = new HashMap<>();
+        LinkedHashMap<String, Integer> currentStatus = new LinkedHashMap<>();
         for (Car car : cars) {
             currentStatus.put(car.carName(), car.carPosition());
         }
@@ -32,7 +32,7 @@ public class CarStatusReader {
     }
 
     public Map<String, Integer> readHeadPosition(List<Car> cars) {
-        HashMap<String, Integer> headPosition = new HashMap<>();
+        LinkedHashMap<String, Integer> headPosition = new LinkedHashMap<>();
         int maxPosition = maxPosition(cars);
         for (Car car : cars) {
             headPosition.putAll(readStatusByPosition(car, maxPosition));
