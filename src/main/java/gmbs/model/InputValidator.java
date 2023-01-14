@@ -26,7 +26,7 @@ public class InputValidator {
     }
 
     public boolean isNaturalNumber(String userRepetitionInput) {
-        if (userRepetitionInput.matches("\\d")) {
+        if (userRepetitionInput.matches("^[0-9]*$")) {
             return !userRepetitionInput.equals("0");
         }
         return false;
