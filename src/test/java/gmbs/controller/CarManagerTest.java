@@ -9,7 +9,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -41,49 +42,26 @@ class CarManagerTest {
     }
 
     @ParameterizedTest
-    @DisplayName("주어진 리스트에서 car객체의 position만 0또는 1이 더해졌는지 확인한다")
-    @MethodSource("generateCars")
-    void updateStatus(List<Car> previousStatus) {
-        List<Car> currentStatus = carManager.updateStatus(previousStatus);
-        for (int i = 0; i < currentStatus.size(); i++) {
-            //when
-            Car currentCarStatus = currentStatus.get(i);
-            Car previousCarStatus = previousStatus.get(i);
-            int offset = currentCarStatus.carPosition() - previousCarStatus.carPosition();
-            //then
-            assertThat(offset).isIn(0, 1);
-            assertThat(currentCarStatus.carName()).isEqualTo(previousCarStatus.carName());
-        }
-
-    }
-
-    static Stream<Arguments> generateCars() {
-        return Stream.of(
-                Arguments.of(carManager.createCar(Arrays.asList("name1", "name2", "name3"))),
-                Arguments.of(carManager.createCar(Arrays.asList("name1"))),
-                Arguments.of(carManager.createCar(Arrays.asList("1", "2", "3", "4", "5", "6")))
-        );
-    }
-
-    @ParameterizedTest
-    @DisplayName("현재 car의 상태를 hashmap으로 반환한다")
+    @DisplayName("주어진 횟수만큼 car의 position에 0또는 1이 더해졌는지 확인한다")
     @MethodSource("generateCarStatus")
-    void currentStatus(List<Car> cars) {
-        Map<String, Integer> carStatus = carManager.currentStatus(cars);
-        for (Car car : cars) {
+    void repeatUpdateStatus(List<Car> originStatus, int repeat) {
+        List<Car> updateStatus = carManager.repeatUpdateStatus(originStatus, repeat);
+        List<Integer> possibleDisplacement = new ArrayList<>(IntStream.rangeClosed(0, repeat).boxed().collect(Collectors.toList()));
+        for (int i = 0; i < originStatus.size(); i++) {
             //when
-            int actual = carStatus.get(car.carName());
-            int expected = car.carPosition();
+            Car updateCarStatus = updateStatus.get(i);
+            Car originCarStatus = originStatus.get(i);
+            int actualDisplacement = updateCarStatus.carPosition() - originCarStatus.carPosition();
             //then
-            assertThat(actual).isEqualTo(expected);
+            assertThat(actualDisplacement).isIn(possibleDisplacement);
+            assertThat(updateCarStatus.carName()).isEqualTo(originCarStatus.carName());
         }
     }
 
     static Stream<Arguments> generateCarStatus() {
         return Stream.of(
-                Arguments.of(carManager.createCar(Arrays.asList("name1", "name2", "name3"))),
-                Arguments.of(carManager.createCar(Arrays.asList("name1"))),
-                Arguments.of(carManager.createCar(Arrays.asList("1", "2", "3", "4", "5", "6")))
+                Arguments.of(carManager.createCar(Arrays.asList("name1", "name2", "name3")), 3),
+                Arguments.of(carManager.createCar(Arrays.asList("name1", "name2", "name3")), 1)
         );
     }
 }
