@@ -16,6 +16,6 @@ public class InputValidator {
         for (String name : inputNames) {
             nameOverflowChecker.add(isNameOverflow(name));
         }
-        return !nameOverflowChecker.contains(true);
+        return !nameOverflowChecker.contains(true) && !inputNames.isEmpty();
     }
 }
