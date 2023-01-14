@@ -9,8 +9,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -42,26 +40,26 @@ class CarManagerTest {
     }
 
     @ParameterizedTest
-    @DisplayName("주어진 횟수만큼 car의 position에 0또는 1이 더해졌는지 확인한다")
+    @DisplayName("update된 car의 position이 0또는 1의 차이가 나는지 확인한다")
     @MethodSource("generateCarStatus")
-    void repeatUpdateStatus(List<Car> originStatus, int repeat) {
-        List<Car> updateStatus = carManager.repeatUpdateStatus(originStatus, repeat);
-        List<Integer> possibleDisplacement = new ArrayList<>(IntStream.rangeClosed(0, repeat).boxed().collect(Collectors.toList()));
+    void UpdateStatus(List<Car> originStatus) {
+        List<Car> updateStatus = carManager.updateStatus(originStatus);
+        List<Integer> possibleDisplacement = new ArrayList<>(Arrays.asList(0, 1));
         for (int i = 0; i < originStatus.size(); i++) {
             //when
-            Car updateCarStatus = updateStatus.get(i);
-            Car originCarStatus = originStatus.get(i);
-            int actualDisplacement = updateCarStatus.carPosition() - originCarStatus.carPosition();
+            Car updateCar = updateStatus.get(i);
+            Car originCar = originStatus.get(i);
+            int actualDisplacement = updateCar.carPosition() - originCar.carPosition();
             //then
             assertThat(actualDisplacement).isIn(possibleDisplacement);
-            assertThat(updateCarStatus.carName()).isEqualTo(originCarStatus.carName());
+            assertThat(updateCar.carName()).isEqualTo(originCar.carName());
         }
     }
 
     static Stream<Arguments> generateCarStatus() {
         return Stream.of(
-                Arguments.of(carManager.createCar(Arrays.asList("name1", "name2", "name3")), 3),
-                Arguments.of(carManager.createCar(Arrays.asList("name1", "name2", "name3")), 1)
+                Arguments.of(carManager.createCar(Arrays.asList("name1", "name2", "name3"))),
+                Arguments.of(carManager.createCar(Arrays.asList("name1", "name2", "name3", "name4")))
         );
     }
 }

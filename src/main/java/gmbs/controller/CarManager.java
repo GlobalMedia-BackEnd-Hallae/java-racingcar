@@ -17,20 +17,11 @@ public class CarManager {
         return cars;
     }
 
-    private List<Car> updateStatus(List<Car> currentStatus) {
+    public List<Car> updateStatus(List<Car> currentStatus) {
         List<Car> updateStatus = new ArrayList<>();
         for (Car car : currentStatus) {
             updateStatus.add(positionGenerator.updatePosition(car));
         }
         return updateStatus;
     }
-
-    public List<Car> repeatUpdateStatus(List<Car> currentStatus, int repeatCount) {
-        List<Car> repeatUpdateStatus = new ArrayList<>();
-        for (int i = 0; i < repeatCount; i++) {
-            repeatUpdateStatus = updateStatus(currentStatus);
-        }
-        return repeatUpdateStatus;
-    }
-
 }
