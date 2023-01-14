@@ -18,4 +18,8 @@ public class InputValidator {
         }
         return !nameOverflowChecker.contains(true) && !inputNames.isEmpty();
     }
+
+    public boolean isNaturalNumber(String userRepetitionInput) {
+        return userRepetitionInput.matches("^[1-9]*$");
+    }
 }

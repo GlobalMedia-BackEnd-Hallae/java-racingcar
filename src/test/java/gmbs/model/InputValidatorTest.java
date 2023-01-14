@@ -3,6 +3,7 @@ package gmbs.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Arrays;
@@ -31,5 +32,15 @@ class InputValidatorTest {
                 Arguments.of(Arrays.asList("name1", "name2", "name3"), true),
                 Arguments.of(Arrays.asList(), false)
         );
+    }
+
+    @ParameterizedTest
+    @DisplayName("주어진 문자열이 자연수인지 확인한다")
+    @CsvSource(value = {"123, true", "12a, false", "-123, false", "0, false"})
+    void isNaturalNumber(String input, boolean expected) {
+        //when
+        boolean actual = validator.isNaturalNumber(input);
+        //then
+        assertThat(actual).isEqualTo(expected);
     }
 }
