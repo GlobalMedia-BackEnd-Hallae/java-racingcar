@@ -1,22 +1,24 @@
-package Model;
+package model;
 
 public class Car {
-    private final String name;
-    private int position = 0;
+
+    private final CarName carName;
+    private final Position position;
 
     public Car(String name) {
-        this.name = name;
+        this.carName = new CarName(name);
+        this.position = new Position();
     }
 
-    public void move(int advance) {
-        this.position += advance;
+    public void move(boolean advance) {
+        position.move(advance);
     }
 
     public String carName() {
-        return this.name;
+        return carName.getCarName();
     }
 
     public int carPosition() {
-        return this.position;
+        return position.getPosition();
     }
 }

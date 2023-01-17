@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,7 +9,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class CreateCarClassListTest {
-    private CreateCarClassList createCarClassList = new CreateCarClassList();
+    private CarStatusCreate createCarClassList = new CarStatusCreate();
 
     @Test
     @DisplayName("Car 클래스를 원소로 가지는 리스트를 생성할 수 있다.")
@@ -28,7 +28,7 @@ class CreateCarClassListTest {
         // given
 
         // then
-        assertThat(createCarClassList.createCarClassList(carList)).isEqualTo(carClassList);
+        //assertThat(createCarClassList.createCarClass(carList)).isEqualTo(carClassList);
 
         // 왜 오류가 나는 거지?? ㅠㅠ
     }

@@ -1,6 +1,6 @@
-package View;
+package view;
 
-import Model.Car;
+import model.Car;
 
 import java.util.List;
 
@@ -12,10 +12,10 @@ public class ProcessOutput {
         }
     }
 
-    public void processOutput(List<Car> carClassList) {
-        for (int index = 0; index < carClassList.size(); index++) {
-            System.out.print(carClassList.get(index).carName() + " : ");
-            outputCarDistance(carClassList.get(index).carPosition());
+    public void processOutput(List<Car> carStatus) {
+        for (Car car : carStatus) {
+            System.out.print(car.carName() + " : ");
+            outputCarDistance(car.carPosition());
             System.out.println();
         }
 

@@ -1,4 +1,4 @@
-package View;
+package view;
 
 import java.util.List;
 
@@ -16,17 +16,17 @@ public class ResultOutput {
         System.out.print(BLANK + car);
     }
 
-    public void resultOutput(List<String> winnerList) {
+    public void resultOutput(List<String> winner) {
         System.out.print("최종 우승자 :");
-        int size = winnerList.size();
+        int size = winner.size();
 
         if (size == 1) {
-            System.out.println(BLANK + winnerList.get(0));
+            System.out.println(BLANK + winner.get(0));
             return;
         }
 
         for (int index = 0; index < size; index++) {
-            resultManyOutputs(winnerList.get(index), index, size - 1);
+            resultManyOutputs(winner.get(index), index, size - 1);
         }
     }
 }
