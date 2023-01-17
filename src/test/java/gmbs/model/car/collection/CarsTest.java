@@ -36,7 +36,7 @@ class CarsTest {
 
         // then
         assertAll(
-                () -> assertThat(actual.size()).isEqualTo(3),
+                () -> assertThat(actual).hasSize(3),
                 () -> assertThat(actual.get(FIRST).getNameValue()).isEqualTo(carNames[FIRST]),
                 () -> assertThat(actual.get(SECOND).getNameValue()).isEqualTo(carNames[SECOND]),
                 () -> assertThat(actual.get(THIRD).getNameValue()).isEqualTo(carNames[THIRD]),
@@ -76,7 +76,7 @@ class CarsTest {
 
         // then
         assertAll(
-                () -> assertThat(winnerCarName.size()).isEqualTo(2),
+                () -> assertThat(winnerCarName).hasSize(2),
                 () -> assertThat(winnerCarName.get(FIRST)).isEqualTo("페라리"),
                 () -> assertThat(winnerCarName.get(SECOND)).isEqualTo("람보르기니")
         );
