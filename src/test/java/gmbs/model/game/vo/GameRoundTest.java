@@ -58,9 +58,6 @@ class GameRoundTest {
         // when
         boolean actual = gameRound.isNotOver();
 
-        System.out.println(gameRound.getCurrentRoundForTest());
-        System.out.println(gameRound.getTotalRoundForTest());
-
         // then
         assertThat(actual).isEqualTo(expect);
     }
