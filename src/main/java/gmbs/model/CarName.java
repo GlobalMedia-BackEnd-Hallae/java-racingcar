@@ -5,7 +5,7 @@ public class CarName {
     private static final int LENGTH_THRESHOLD = 5;
     private final String name;
 
-    CarName(String carName) {
+    public CarName(String carName) {
         this.name = carName;
         validateLength();
     }
