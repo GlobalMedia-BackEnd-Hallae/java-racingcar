@@ -21,9 +21,9 @@ public class InputManager {
 
     public List<String> carNameInput(String userInput) {
         List<String> carNames = new ArrayList<>(Arrays.asList(userInput.split(SPLIT_VALUE)));
-        if (!validator.isValidNames(carNames)) {
-            nameOverflowException();
-        }
+//        if (!validator.isValidNames(carNames)) {
+//            nameOverflowException();
+//        }
         return carNames;
     }
 

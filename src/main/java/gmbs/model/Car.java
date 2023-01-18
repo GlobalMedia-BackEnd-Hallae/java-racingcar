@@ -1,22 +1,21 @@
 package gmbs.model;
 
 public class Car {
-
-    private final String name;
+    private final CarName carName;
     private int position = 0;
 
     public Car(String name) {
-        this.name = name;
+        this.carName = new CarName(name);
     }
 
     public Car move(int position) {
-        Car car = new Car(this.name);
+        Car car = new Car(carName.name());
         car.position = position;
         return car;
     }
 
     public String carName() {
-        return this.name;
+        return this.carName.name();
     }
 
     public int carPosition() {
