@@ -10,7 +10,7 @@ public class RepetitionNumber {
     }
 
     private void validate() {
-        if (repetition.matches(REGEX_FOR_NUMBER) || repetition.equals("0")) {
+        if (!repetition.matches(REGEX_FOR_NUMBER) || repetition.equals("0") || repetition.length() == 0) {
             throw new IllegalArgumentException("[Error] 잘못된 반복횟수");
         }
     }

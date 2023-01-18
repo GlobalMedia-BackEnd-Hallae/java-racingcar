@@ -11,7 +11,7 @@ class RepetitionNumberTest {
 
     @ParameterizedTest
     @DisplayName("자연수가 아니면 예외를 발생시킨다")
-    @ValueSource(strings = {"abc", "1ab", " ", "-1", "0"})
+    @ValueSource(strings = {"abc", "1ab", " ", "-1", "0", ""})
     void RepetitionNumber_ExceptionThrownByInvalidInput(String invalidInput) {
         assertThatThrownBy(() -> new RepetitionNumber(invalidInput)).isInstanceOf(IllegalArgumentException.class).hasMessage("[Error] 잘못된 반복횟수");
     }
