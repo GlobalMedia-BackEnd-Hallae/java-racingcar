@@ -1,7 +1,7 @@
 package gmbs.model;
 
 public class RepetitionNumber {
-    private static final String REGEX_FOR_NUMBER = "^[0-9]*$";
+    private static final String NUMBER_REGEX = "^[0-9]*$";
     private final String repetition;
 
     public RepetitionNumber(String input) {
@@ -10,7 +10,7 @@ public class RepetitionNumber {
     }
 
     private void validate() {
-        if (!repetition.matches(REGEX_FOR_NUMBER) || repetition.equals("0") || repetition.length() == 0) {
+        if (!repetition.matches(NUMBER_REGEX) || repetition.equals("0") || repetition.length() == 0) {
             throw new IllegalArgumentException("[Error] 잘못된 반복횟수");
         }
     }
