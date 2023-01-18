@@ -3,8 +3,10 @@ package gmbs.model;
 import java.util.Random;
 
 public class Dice {
-    private int diceRangeStart;
-    private int diceRangeEnd;
+
+    private final int diceRangeStart;
+    private final int diceRangeEnd;
+
     private final Random random = new Random();
 
     public Dice(int rangeStart, int rangeEnd) {

@@ -1,6 +1,7 @@
 package gmbs.model;
 
 public class RepetitionNumber {
+
     private static final String NUMBER_REGEX = "^[0-9]*$";
     private final String repetition;
 

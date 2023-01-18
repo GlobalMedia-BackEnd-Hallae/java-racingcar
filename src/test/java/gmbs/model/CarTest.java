@@ -12,9 +12,11 @@ class CarTest {
     @DisplayName("4 이상의 수를 넣으면 carposition에 1이 더해진다")
     @CsvSource(value = {"4, 0", "5, 1"})
     void moveByCondition(int input, int expectedPositionDifference) {
-        Car origin = new Car("test");
-        Car update = origin.moveByCondition(input);
-        int actualPositionDifference = update.carPosition() - origin.carPosition();
+        Car testCar = new Car("test");
+        int originPosition = testCar.carPosition();
+        testCar.moveByCondition(input);
+        int updatePosition = testCar.carPosition();
+        int actualPositionDifference = updatePosition - originPosition;
 
         assertThat(actualPositionDifference).isEqualTo(expectedPositionDifference);
     }

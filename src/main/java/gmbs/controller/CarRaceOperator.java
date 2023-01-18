@@ -1,37 +1,20 @@
 package gmbs.controller;
 
-import gmbs.model.Car;
-import gmbs.model.Dice;
+import gmbs.model.RacingCars;
 import gmbs.model.RepetitionNumber;
 import gmbs.view.Display;
 import gmbs.view.UserInput;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CarRaceOperator {
+
     private static final Display display = new Display();
     private static final UserInput userInput = new UserInput();
-    private static final InputConverter inputManager = new InputConverter();
-    private static final CarStatusReader reader = new CarStatusReader();
     private static final String SPLIT_VALUE = ",";
-    private static final Dice dice = new Dice(0, 9);
 
-    private List<Car> createCar(List<String> carNames) {
-        List<Car> cars = new ArrayList<>();
-        for (String name : carNames) {
-            cars.add(new Car(name));
-        }
-        return cars;
-    }
-
-    private List<Car> updateCarsStatus(List<Car> currentStatus) {
-        List<Car> updateStatus = new ArrayList<>();
-        for (Car car : currentStatus) {
-            updateStatus.add(car.moveByCondition(dice.roll()));
-        }
-        return updateStatus;
-    }
+    private RacingCars racingCars;
 
     private int scanRepetition() {
         int repetition;
@@ -44,37 +27,42 @@ public class CarRaceOperator {
         return repetition;
     }
 
-    private List<Car> registerCars() {
-        List<Car> cars;
+    private List<String> splitInput(String userInput) {
+        return Arrays.asList(userInput.split(SPLIT_VALUE));
+    }
+
+    private List<String> requestCarNames() {
         List<String> carNames;
         try {
-            carNames = inputManager.splitInputBy(userInput.userInput(), SPLIT_VALUE);
-            cars = createCar(carNames);
+            carNames = splitInput(userInput.userInput());
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            cars = registerCars();
+            carNames = requestCarNames();
         }
-        return cars;
+        return carNames;
     }
 
-    private List<Car> repeatRace(List<Car> currentStatus, int repeatCount) {
-        List<Car> resultStatus = new ArrayList<>(currentStatus);
-        for (int i = 0; i < repeatCount; i++) {
-            resultStatus = updateCarsStatus(resultStatus);
-            display.showStatus(reader.readCurrentStatus(resultStatus));
+    private void registerCars() {
+        try {
+            racingCars = new RacingCars(requestCarNames());
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            registerCars();
         }
-        return resultStatus;
     }
 
-    public void operateCarRace() {
-        List<Car> cars;
-        int repetition;
+    private void repeatRace(int repetition) {
+        for (int i = 0; i < repetition; i++) {
+            racingCars.updateStatus();
+            display.showStatus(racingCars.getCurrentCarsStatus());
+        }
+    }
 
+    public void operate() {
         display.showStartDisplay();
-        cars = registerCars();
+        registerCars();
         display.showRepeatDisplay();
-        repetition = scanRepetition();
-        cars = repeatRace(cars, repetition);
-        display.showWinners(reader.readHeadPositionNames(cars));
+        repeatRace(scanRepetition());
+        display.showWinners(racingCars.getHeadPositionNames());
     }
 }
