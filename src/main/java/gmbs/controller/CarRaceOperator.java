@@ -1,6 +1,8 @@
 package gmbs.controller;
 
 import gmbs.model.Car;
+import gmbs.model.CarManager;
+import gmbs.model.RepetitionNumber;
 import gmbs.view.Display;
 import gmbs.view.UserInput;
 
@@ -10,15 +12,16 @@ import java.util.List;
 public class CarRaceOperator {
     private static final Display display = new Display();
     private static final UserInput userInput = new UserInput();
-    private static final InputManager inputManager = new InputManager();
+    private static final InputConverter inputManager = new InputConverter();
     private static final CarManager carManager = new CarManager();
     private static final CarStatusReader reader = new CarStatusReader();
 
+    private static final String SPLIT_VALUE = ",";
+
     private int scanRepetition() {
         int repetition;
-
         try {
-            repetition = inputManager.repetitionInput(userInput.userInput());
+            repetition = Integer.parseInt(new RepetitionNumber(userInput.userInput()).number());
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             repetition = scanRepetition();
@@ -26,27 +29,15 @@ public class CarRaceOperator {
         return repetition;
     }
 
-    public void operateCarRace() {
-        List<Car> cars;
-        int repetition;
-
-        display.showStartDisplay();
-        cars = scanCars();
-        display.showRepeatDisplay();
-        repetition = scanRepetition();
-        cars = repeatRace(cars, repetition);
-        display.showWinners(reader.readHeadPositionNames(cars));
-    }
-
-    private List<Car> scanCars() {
+    private List<Car> registerCars() {
         List<Car> cars;
         List<String> carNames;
         try {
-            carNames = inputManager.carNameInput(userInput.userInput());
+            carNames = inputManager.splitInputBy(userInput.userInput(), SPLIT_VALUE);
             cars = carManager.createCar(carNames);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            cars = scanCars();
+            cars = registerCars();
         }
         return cars;
     }
@@ -58,5 +49,17 @@ public class CarRaceOperator {
             display.showStatus(reader.readCurrentStatus(resultStatus));
         }
         return resultStatus;
+    }
+
+    public void operateCarRace() {
+        List<Car> cars;
+        int repetition;
+
+        display.showStartDisplay();
+        cars = registerCars();
+        display.showRepeatDisplay();
+        repetition = scanRepetition();
+        cars = repeatRace(cars, repetition);
+        display.showWinners(reader.readHeadPositionNames(cars));
     }
 }

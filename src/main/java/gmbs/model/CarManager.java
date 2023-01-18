@@ -1,7 +1,4 @@
-package gmbs.controller;
-
-import gmbs.model.Car;
-import gmbs.model.CarPositionGenerator;
+package gmbs.model;
 
 import java.util.ArrayList;
 import java.util.List;

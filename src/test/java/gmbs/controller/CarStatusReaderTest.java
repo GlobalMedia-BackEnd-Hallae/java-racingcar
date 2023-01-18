@@ -1,6 +1,7 @@
 package gmbs.controller;
 
 import gmbs.model.Car;
+import gmbs.model.CarManager;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -14,14 +15,14 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CarStatusReaderTest {
+class CarStatusReaderTest {
     private static final CarStatusReader reader = new CarStatusReader();
     private static final CarManager manager = new CarManager();
 
     @ParameterizedTest
     @DisplayName("현재 car의 상태를 hashmap으로 반환한다")
     @MethodSource("generateCarStatus")
-    public void currentStatus(List<Car> cars) {
+    void currentStatus(List<Car> cars) {
         Map<String, Integer> carStatus = reader.readCurrentStatus(cars);
         for (Car car : cars) {
             //when
@@ -43,7 +44,7 @@ public class CarStatusReaderTest {
     @ParameterizedTest
     @DisplayName("position이 가장 큰 car의 name을 반환하는지 확인한다")
     @MethodSource("generateCarPositions")
-    public void readHeadPositionNames(List<Car> cars, List<String> expected) {
+    void readHeadPositionNames(List<Car> cars, List<String> expected) {
         List<String> headPositionNames = new ArrayList<>(reader.readHeadPositionNames(cars));
         assertThat(headPositionNames).containsAll(expected);
     }

@@ -1,6 +1,5 @@
-package gmbs.controller;
+package gmbs.model;
 
-import gmbs.model.Car;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -14,13 +13,13 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class CarManagerTest {
+class CarManagerTest {
     private static final CarManager carManager = new CarManager();
 
     @ParameterizedTest
     @DisplayName("주어진 이름의 car객체가 추가되었는지 확인한다")
     @MethodSource("generateCarNames")
-    public void createCar(List<String> carNames) {
+    void createCar(List<String> carNames) {
         //when
         List<Car> cars = carManager.createCar(carNames);
         List<String> actual = new ArrayList<>();
@@ -42,7 +41,7 @@ public class CarManagerTest {
     @ParameterizedTest
     @DisplayName("update된 car의 position이 0또는 1의 차이가 나는지 확인한다")
     @MethodSource("generateCarStatus")
-    public void UpdateStatus(List<Car> originStatus) {
+    void UpdateStatus(List<Car> originStatus) {
         List<Car> updateStatus = carManager.updateStatus(originStatus);
         List<Integer> possibleDisplacement = new ArrayList<>(Arrays.asList(0, 1));
         for (int i = 0; i < originStatus.size(); i++) {
