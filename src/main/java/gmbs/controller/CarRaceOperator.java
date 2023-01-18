@@ -1,7 +1,7 @@
 package gmbs.controller;
 
 import gmbs.model.Car;
-import gmbs.model.CarManager;
+import gmbs.model.Dice;
 import gmbs.model.RepetitionNumber;
 import gmbs.view.Display;
 import gmbs.view.UserInput;
@@ -13,10 +13,25 @@ public class CarRaceOperator {
     private static final Display display = new Display();
     private static final UserInput userInput = new UserInput();
     private static final InputConverter inputManager = new InputConverter();
-    private static final CarManager carManager = new CarManager();
     private static final CarStatusReader reader = new CarStatusReader();
-
     private static final String SPLIT_VALUE = ",";
+    private static final Dice dice = new Dice(0, 9);
+
+    private List<Car> createCar(List<String> carNames) {
+        List<Car> cars = new ArrayList<>();
+        for (String name : carNames) {
+            cars.add(new Car(name));
+        }
+        return cars;
+    }
+
+    private List<Car> updateCarsStatus(List<Car> currentStatus) {
+        List<Car> updateStatus = new ArrayList<>();
+        for (Car car : currentStatus) {
+            updateStatus.add(car.moveByCondition(dice.roll()));
+        }
+        return updateStatus;
+    }
 
     private int scanRepetition() {
         int repetition;
@@ -34,7 +49,7 @@ public class CarRaceOperator {
         List<String> carNames;
         try {
             carNames = inputManager.splitInputBy(userInput.userInput(), SPLIT_VALUE);
-            cars = carManager.createCar(carNames);
+            cars = createCar(carNames);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             cars = registerCars();
@@ -45,7 +60,7 @@ public class CarRaceOperator {
     private List<Car> repeatRace(List<Car> currentStatus, int repeatCount) {
         List<Car> resultStatus = new ArrayList<>(currentStatus);
         for (int i = 0; i < repeatCount; i++) {
-            resultStatus = carManager.updateStatus(resultStatus);
+            resultStatus = updateCarsStatus(resultStatus);
             display.showStatus(reader.readCurrentStatus(resultStatus));
         }
         return resultStatus;

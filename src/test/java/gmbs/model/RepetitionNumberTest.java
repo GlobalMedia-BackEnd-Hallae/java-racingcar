@@ -8,7 +8,6 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 class RepetitionNumberTest {
 
-
     @ParameterizedTest
     @DisplayName("자연수가 아니면 예외를 발생시킨다")
     @ValueSource(strings = {"abc", "1ab", " ", "-1", "0", ""})

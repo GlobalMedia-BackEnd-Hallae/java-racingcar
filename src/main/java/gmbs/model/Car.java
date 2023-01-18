@@ -1,6 +1,9 @@
 package gmbs.model;
 
 public class Car {
+    private static final int DO_NOTHING_THRESHOLD = 4;
+    private static final int TRAVEL_DISTANCE_UNIT = 1;
+
     private final CarName carName;
     private int position = 0;
 
@@ -8,10 +11,16 @@ public class Car {
         this.carName = new CarName(name);
     }
 
-    public Car move(int position) {
-        Car car = new Car(carName.name());
-        car.position = position;
-        return car;
+    private Car(String name, int position) {
+        this.carName = new CarName(name);
+        this.position = position;
+    }
+
+    public Car moveByCondition(int givenNumber) {
+        if (givenNumber > DO_NOTHING_THRESHOLD) {
+            return new Car(this.carName.name(), this.position + TRAVEL_DISTANCE_UNIT);
+        }
+        return this;
     }
 
     public String carName() {
