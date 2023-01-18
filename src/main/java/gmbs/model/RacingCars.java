@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class RacingCars {
 
-    private final Dice dice = new Dice(0, 9);
+    private final RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator(0, 9);
     private final List<Car> cars = new ArrayList<>();
     private int headPositionValue;
 
@@ -26,7 +26,7 @@ public class RacingCars {
 
     public void updateStatus() {
         for (Car car : cars) {
-            car.moveByCondition(dice.roll());
+            car.moveByCondition(randomNumberGenerator.generate());
             headPositionUpdate(car.carPosition());
         }
     }
