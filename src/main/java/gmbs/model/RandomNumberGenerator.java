@@ -2,19 +2,20 @@ package gmbs.model;
 
 import java.util.Random;
 
-public class RandomNumberGenerator {
+public class RandomNumberGenerator implements NumberGenerator {
 
-    private final int RangeStart;
-    private final int RangeEnd;
+    private final int rangeStart;
+    private final int rangeEnd;
 
     private final Random random = new Random();
 
     public RandomNumberGenerator(int rangeStart, int rangeEnd) {
-        RangeStart = rangeStart;
-        RangeEnd = rangeEnd;
+        this.rangeStart = rangeStart;
+        this.rangeEnd = rangeEnd;
     }
 
+    @Override
     public int generate() {
-        return random.nextInt(RangeEnd - RangeStart + 1) + RangeStart;
+        return random.nextInt(rangeEnd - rangeStart + 1) + rangeStart;
     }
 }

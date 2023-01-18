@@ -1,6 +1,7 @@
 package gmbs.controller;
 
 import gmbs.model.RacingCars;
+import gmbs.model.RandomNumberGenerator;
 import gmbs.model.RepetitionNumber;
 import gmbs.view.Display;
 import gmbs.view.UserInput;
@@ -13,6 +14,7 @@ public class CarRaceOperator {
     private static final Display display = new Display();
     private static final UserInput userInput = new UserInput();
     private static final String SPLIT_VALUE = ",";
+    private static final RandomNumberGenerator generator = new RandomNumberGenerator(0, 9);
 
     private RacingCars racingCars;
 
@@ -53,7 +55,7 @@ public class CarRaceOperator {
 
     private void repeatRace(int repetition) {
         for (int i = 0; i < repetition; i++) {
-            racingCars.updateStatus();
+            racingCars.updateStatus(generator);
             display.showStatus(racingCars.getCurrentCarsStatus());
         }
     }
