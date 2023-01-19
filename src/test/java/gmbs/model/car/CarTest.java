@@ -38,7 +38,7 @@ class CarTest {
         assertThat(actual).isEqualTo(5);
     }
 
-    @DisplayName("movable 에 따라 자동차의 전진 여부가 결정된다")
+    @DisplayName("movable 이 true 이면 1만큼 전진하고, false 라면 전진하지 않는다")
     @ParameterizedTest
     @MethodSource("providerCarAndMovableAndExpectPositionValue")
     void moveForward(Car car, boolean movable, int expect) {
@@ -56,7 +56,7 @@ class CarTest {
         );
     }
 
-    @DisplayName("해당 자동차가 다른 자동차에 비해 가장 멀리 전진했는지 비교한다")
+    @DisplayName("모든 자동차 리스트를 받아, 해당 자동차의 위치가 가장 먼 경우 true 를, 그렇지 않으면 false 를 반환한다")
     @ParameterizedTest
     @MethodSource("providerAllCarAndExpect")
     void isFarthest(List<Car> allCars, boolean expect) {
