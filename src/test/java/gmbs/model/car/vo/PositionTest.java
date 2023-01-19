@@ -16,21 +16,23 @@ class PositionTest {
     private static final int LOWER_POSITION = 1;
     private static final int HIGHER_POSITION = 10;
 
+    private Position position;
+
     @DisplayName("인자 없이 기본 생성 시 기본 위치값 0 이 반환된다")
     @Test
     void createDefaultPosition() {
         // when
-        Position position = new Position();
+        position = new Position();
 
         // then
-        assertThat(position.getValue()).isEqualTo(0);
+        assertThat(position.getValue()).isZero();
     }
 
     @DisplayName("인자를 전달해 생성 시 기본 전달된 값이 위치값으로 반환된다")
     @Test
     void createParamPosition() {
         // when
-        Position position = Position.fromTest(STANDARD_POSITION);
+        position = Position.fromTest(STANDARD_POSITION);
 
         // then
         assertThat(position.getValue()).isEqualTo(STANDARD_POSITION);
@@ -40,7 +42,7 @@ class PositionTest {
     @Test
     void increasePositionValue() {
         // given
-        Position position = Position.fromTest(STANDARD_POSITION);
+        position = Position.fromTest(STANDARD_POSITION);
 
         // when
         position.increase();
@@ -54,10 +56,10 @@ class PositionTest {
     @MethodSource("providerAnotherPosition")
     void isHigherThan(Position anotherPosition, boolean expect) {
         // given
-        Position myPosition = Position.fromTest(STANDARD_POSITION);
+        position = Position.fromTest(STANDARD_POSITION);
 
         // when
-        boolean isHigherThan = myPosition.isHigherThan(anotherPosition);
+        boolean isHigherThan = position.isHigherThan(anotherPosition);
 
         // then
         assertThat(isHigherThan).isEqualTo(expect);
