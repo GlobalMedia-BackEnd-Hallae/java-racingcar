@@ -23,6 +23,7 @@ class GameRoundTest {
     @ParameterizedTest
     @ValueSource(ints = {0, -1})
     void throwErrorWhenRoundInputIsUnderOne(int actual) {
+        // when, then
         assertThatThrownBy(() -> new GameRound(actual))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 시도 회수는 1보다 작을 수 없습니다");
