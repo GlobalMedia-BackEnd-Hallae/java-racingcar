@@ -1,32 +1,21 @@
 package view;
 
 import java.util.List;
+import java.util.StringJoiner;
 
 public class ResultOutput {
 
-    private static final String BLANK = " ";
-    private static final String COMMA = ",";
-
-    private void resultManyOutputs(String car, int index, int size) {
-        if (index != size) {
-            System.out.print(BLANK + car + COMMA);
-            return;
-        }
-
-        System.out.print(BLANK + car);
-    }
-
     public void resultOutput(List<String> winner) {
-        System.out.print("최종 우승자 :");
-        int size = winner.size();
+        final String BLANK = " ";
+        final String COMMA = ",";
+        final String COMMENT = "최종 우승자 : ";
 
-        if (size == 1) {
-            System.out.println(BLANK + winner.get(0));
-            return;
-        }
+        StringJoiner stringJoiner = new StringJoiner(COMMA + BLANK);
 
-        for (int index = 0; index < size; index++) {
-            resultManyOutputs(winner.get(index), index, size - 1);
+        for (String carName : winner) {
+            stringJoiner.add(carName);
         }
+        
+        System.out.print(COMMENT + stringJoiner);
     }
 }
