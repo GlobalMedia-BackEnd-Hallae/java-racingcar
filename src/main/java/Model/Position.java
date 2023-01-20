@@ -5,7 +5,9 @@ public class Position {
     private int pos;
 
     public Position() {
-        this.pos = 0;
+        final int INITIAL_VALUE = 0;
+
+        this.pos = INITIAL_VALUE;
     }
 
     public void move(boolean advance) {
