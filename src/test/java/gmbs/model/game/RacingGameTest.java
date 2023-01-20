@@ -13,19 +13,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class RacingGameTest {
 
-    private final String[] carNames = new String[] {"페라리", "람보르기니" ,"포드"};
-    private final boolean[] movable = new boolean[] {true, true, false};
+    private static final int FIRST_INDEX = 0;
+    private static final int SECOND_INDEX = 1;
+    private static final int THIRD_INDEX = 2;
+    private static final String[] CAR_NAMES = new String[] {"페라리", "람보르기니" ,"포드"};
+    private static final boolean[] MOVABLE = new boolean[] {true, true, false};
+
     private int index;
     private RacingGame racingGame;
 
     @BeforeEach
-    void setup() {
+    void setUp() {
         index = 0;
-        final Condition moveCondition = () -> movable[index++];
-        racingGame = new RacingGame(carNames, moveCondition);
+        final Condition moveCondition = () -> MOVABLE[index++];
+        racingGame = new RacingGame(CAR_NAMES, moveCondition);
     }
 
-    @DisplayName("게임 라운드 진행 시 자동차가 전진한다")
+    @DisplayName("게임 라운드 진행 시 movable 에 따라 자동차가 전진한다")
     @Test
     void playRound() {
         // when
@@ -33,9 +37,9 @@ class RacingGameTest {
 
         // then
         assertAll(
-                () -> assertThat(actual.get(0).getPositionValue()).isEqualTo(1),
-                () -> assertThat(actual.get(1).getPositionValue()).isEqualTo(1),
-                () -> assertThat(actual.get(2).getPositionValue()).isEqualTo(0)
+                () -> assertThat(actual.get(FIRST_INDEX).getPositionValue()).isEqualTo(1),
+                () -> assertThat(actual.get(SECOND_INDEX).getPositionValue()).isEqualTo(1),
+                () -> assertThat(actual.get(THIRD_INDEX).getPositionValue()).isZero()
         );
     }
 
@@ -50,8 +54,8 @@ class RacingGameTest {
 
         // then
         assertAll(
-                () -> assertThat(actual.get(0)).isEqualTo("페라리"),
-                () -> assertThat(actual.get(1)).isEqualTo("람보르기니")
+                () -> assertThat(actual.get(FIRST_INDEX)).isEqualTo("페라리"),
+                () -> assertThat(actual.get(SECOND_INDEX)).isEqualTo("람보르기니")
         );
     }
 }
