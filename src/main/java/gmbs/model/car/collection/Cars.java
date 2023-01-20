@@ -9,26 +9,26 @@ import java.util.stream.Collectors;
 
 public class Cars {
 
-    private final List<Car> cars;
+    private final List<Car> values;
 
     public Cars(final String[] carNames) {
-        cars = Arrays.stream(carNames)
+        values = Arrays.stream(carNames)
                 .map(Car::new)
                 .collect(Collectors.toUnmodifiableList());
     }
 
     public void race(Condition condition) {
-        cars.forEach(car -> car.moveForward(condition.isMovable()));
+        values.forEach(car -> car.moveForward(condition.isMovable()));
     }
 
     public List<String> getWinnerCarName() {
-        return cars.stream()
-                .filter(car -> car.isFarthest(cars))
+        return values.stream()
+                .filter(car -> car.isFarthest(values))
                 .map(Car::getNameValue)
                 .collect(Collectors.toUnmodifiableList());
     }
 
     public List<Car> getCars() {
-        return cars;
+        return values;
     }
 }
