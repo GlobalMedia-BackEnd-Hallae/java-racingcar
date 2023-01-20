@@ -14,18 +14,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 class CarsTest {
 
     private static final int INDEX_INIT = 0;
-    private static final int FIRST = 0;
-    private static final int SECOND = 1;
-    private static final int THIRD = 2;
+    private static final int FIRST_INDEX = 0;
+    private static final int SECOND_INDEX = 1;
+    private static final int THIRD_INDEX = 2;
+    private static final String[] CAR_NAMES = new String[] {"페라리", "람보르기니" ,"포드"};
+    private static final boolean[] MOVABLE = new boolean[] {true, true, false};
 
-    private final String[] carNames = new String[] {"페라리", "람보르기니" ,"포드"};
     private Cars cars;
-    private final boolean[] movable = new boolean[] {true, true, false};
     private int index = 0;
 
     @BeforeEach
-    void setup_given() {
-        cars = new Cars(carNames);
+    void setUp() {
+        cars = new Cars(CAR_NAMES);
     }
 
     @DisplayName("주어진 Cars 를 가져온다")
@@ -37,30 +37,30 @@ class CarsTest {
         // then
         assertAll(
                 () -> assertThat(actual).hasSize(3),
-                () -> assertThat(actual.get(FIRST).getNameValue()).isEqualTo(carNames[FIRST]),
-                () -> assertThat(actual.get(SECOND).getNameValue()).isEqualTo(carNames[SECOND]),
-                () -> assertThat(actual.get(THIRD).getNameValue()).isEqualTo(carNames[THIRD]),
+                () -> assertThat(actual.get(FIRST_INDEX).getNameValue()).isEqualTo(CAR_NAMES[FIRST_INDEX]),
+                () -> assertThat(actual.get(SECOND_INDEX).getNameValue()).isEqualTo(CAR_NAMES[SECOND_INDEX]),
+                () -> assertThat(actual.get(THIRD_INDEX).getNameValue()).isEqualTo(CAR_NAMES[THIRD_INDEX]),
                 () -> {
+                    int defaultPositionValue = new Position().getValue();
                     for (Car car : actual) {
-                        int defaultPositionValue = new Position().getValue();
                         assertThat(car.getPositionValue()).isEqualTo(defaultPositionValue);
                     }
                 }
         );
     }
 
-    @DisplayName("이동 조건에 부합하면 자동차를 이동시킨다")
+    @DisplayName("movable 이 true 이면 자동차를 이동시키고 false 이면 움직이지 않는다")
     @Test
     void race() {
         // when
-        cars.race(() -> movable[index++]);
+        cars.race(() -> MOVABLE[index++]);
 
         // then
         List<Car> movedCars = cars.getCars();
         assertAll(
-                () -> assertThat(movedCars.get(FIRST).getPositionValue()).isEqualTo(1),
-                () -> assertThat(movedCars.get(SECOND).getPositionValue()).isEqualTo(1),
-                () -> assertThat(movedCars.get(THIRD).getPositionValue()).isEqualTo(0)
+                () -> assertThat(movedCars.get(FIRST_INDEX).getPositionValue()).isEqualTo(1),
+                () -> assertThat(movedCars.get(SECOND_INDEX).getPositionValue()).isEqualTo(1),
+                () -> assertThat(movedCars.get(THIRD_INDEX).getPositionValue()).isZero()
         );
     }
 
@@ -69,16 +69,16 @@ class CarsTest {
     void getWinnerCarName() {
         // given
         index = INDEX_INIT;
-        cars.race(() -> movable[index++]);
+        cars.race(() -> MOVABLE[index++]);
 
         // when
-        List<String> winnerCarName = cars.getWinnerCarName();
+        List<String> winnerCarNames = cars.getWinnerCarName();
 
         // then
         assertAll(
-                () -> assertThat(winnerCarName).hasSize(2),
-                () -> assertThat(winnerCarName.get(FIRST)).isEqualTo("페라리"),
-                () -> assertThat(winnerCarName.get(SECOND)).isEqualTo("람보르기니")
+                () -> assertThat(winnerCarNames).hasSize(2),
+                () -> assertThat(winnerCarNames.get(FIRST_INDEX)).isEqualTo("페라리"),
+                () -> assertThat(winnerCarNames.get(SECOND_INDEX)).isEqualTo("람보르기니")
         );
     }
 }
