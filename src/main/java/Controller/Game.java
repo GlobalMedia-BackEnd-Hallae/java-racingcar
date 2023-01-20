@@ -11,18 +11,32 @@ import java.util.List;
 public class Game {
 
     private CarInput carInput = new CarInput();
-    private CarNameCheck carNameCheck = new CarNameCheck();
-    private CarStatusCreate createCarClass = new CarStatusCreate();
+    private CarNameSplit carNameSplit = new CarNameSplit();
+    private CarStatusCreate createCarStatus = new CarStatusCreate();
     private NumberInput numberInput = new NumberInput();
     private NumberCheck numberCheck = new NumberCheck();
     private CarPositionMove carPositionMove = new CarPositionMove();
     private ProcessOutput processOutput = new ProcessOutput();
-    private WinnerCreate createWinner = new WinnerCreate();
+    private WinnerCreate winnerCreate = new WinnerCreate();
     private ResultOutput resultOutput = new ResultOutput();
 
-    private List<String> inputAndCheckCarName() {
+    public void racingCar() {
+        final int GAME_END = 0;
+
+        List<Car> carStatus = inputAndCheckCarName();
+        int number = inputAndCheckNumber();
+
+        while (number-- != GAME_END) {
+            carPositionMove.move(carStatus);
+            processOutput.processOutput(carStatus);
+        }
+
+        resultOutput.resultOutput(winnerCreate.createWinner(carStatus));
+    }
+
+    private List<Car> inputAndCheckCarName() {
         try {
-            return carNameCheck.checkCarName(carInput.inputCarName());
+            return createCarStatus.createCarStatus(carNameSplit.splitCarName(carInput.inputCarName()));
         } catch (IllegalStateException exception) {
             carInput.reportError();
             return inputAndCheckCarName();
@@ -36,18 +50,5 @@ public class Game {
             numberInput.reportError();
             return inputAndCheckNumber();
         }
-    }
-
-    public void racingCar() {
-        List<Car> carStatus = createCarClass.createCarStatus(inputAndCheckCarName());
-        int number = inputAndCheckNumber();
-
-        while (number-- != 0) {
-            carPositionMove.move(carStatus);
-            processOutput.processOutput(carStatus);
-        }
-
-        List<String> winner = createWinner.createWinner(carStatus);
-        resultOutput.resultOutput(winner);
     }
 }
