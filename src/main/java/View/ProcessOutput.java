@@ -6,19 +6,28 @@ import java.util.List;
 
 public class ProcessOutput {
 
-    public void outputCarDistance(int number) {
-        for (int distance = 0; distance < number; distance++) {
-            System.out.print("-");
+    public void processOutput(List<Car> carStatus) {
+        final String COLON = " : ";
+        final String ENTER = "\n";
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (Car car : carStatus) {
+            stringBuilder.append(car.carName() + COLON + outputCarDistance(car.carPosition()) + ENTER);
         }
+
+        System.out.println(stringBuilder);
     }
 
-    public void processOutput(List<Car> carStatus) {
-        for (Car car : carStatus) {
-            System.out.print(car.carName() + " : ");
-            outputCarDistance(car.carPosition());
-            System.out.println();
+    private StringBuilder outputCarDistance(int distance) {
+        final String DISTANCE = "-";
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (int index = 0; index < distance; index++) {
+            stringBuilder.append(DISTANCE);
         }
 
-        System.out.println();
+        return stringBuilder;
     }
 }
