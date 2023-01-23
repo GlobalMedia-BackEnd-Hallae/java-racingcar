@@ -11,11 +11,16 @@ public class Winners {
 
     public Winners(List<Car> cars) {
         int maxPosition = getMaxPosition(cars);
-        winners = cars.stream().filter(car -> car.getPosition() == maxPosition).collect(Collectors.toList());
+        winners = cars.stream()
+                .filter(car -> car.getPosition() == maxPosition)
+                .collect(Collectors.toList());
     }
 
     private int getMaxPosition(List<Car> cars) {
-        return cars.stream().mapToInt(Car::getPosition).max().orElse(MIN_POSITION);
+        return cars.stream()
+                .mapToInt(Car::getPosition)
+                .max()
+                .orElse(MIN_POSITION);
     }
 
     @Override
