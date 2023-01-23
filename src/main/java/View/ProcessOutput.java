@@ -13,13 +13,13 @@ public class ProcessOutput {
         StringBuilder stringBuilder = new StringBuilder();
 
         for (Car car : carStatus) {
-            stringBuilder.append(car.carName() + COLON + outputCarDistance(car.carPosition()) + ENTER);
+            stringBuilder.append(car.carName() + COLON + carDistanceOutput(car.carPosition()) + ENTER);
         }
 
         System.out.println(stringBuilder);
     }
 
-    private StringBuilder outputCarDistance(int distance) {
+    private StringBuilder carDistanceOutput(int distance) {
         final String DISTANCE = "-";
 
         StringBuilder stringBuilder = new StringBuilder();
