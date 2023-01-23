@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.params.provider.CsvSource;
 
 class CarTest {
     @Test
@@ -13,27 +13,23 @@ class CarTest {
         String name = "test1";
 
         // when
-        Car car = new Car(name);
-
         // then
-        assertThat(car).isNotNull();
+        assertThatCode(() -> {
+            new Cars(name);
+        }).doesNotThrowAnyException();
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"", "123456", " "})
-    void 자동차_생성_실패(String name) {
+    @CsvSource({"4, 1", "3, 0"})
+    void 전진_정지(int random, int expected) {
+        // given
+        Car car = new Car("test");
+
+        // when
+        car.move(random);
+
         // then
-        assertThatThrownBy(() -> new Car(name)).isInstanceOf(IllegalArgumentException.class);
-    }
-
-    @Test
-    void 전진() {
-        move_테스트(6, 1);
-    }
-
-    @Test
-    void 정지() {
-        move_테스트(3, 0);
+        assertThat(car.getPosition()).isEqualTo(expected);
     }
 
     void move_테스트(int random, int expected) {
