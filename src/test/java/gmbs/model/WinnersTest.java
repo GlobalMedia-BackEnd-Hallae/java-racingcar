@@ -5,10 +5,10 @@ import static org.assertj.core.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.junit.jupiter.api.Test;
 
 class WinnersTest {
+
     @Test
     void 비어있지_않음() {
         // given
