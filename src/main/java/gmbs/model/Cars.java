@@ -13,14 +13,24 @@ public class Cars {
     private static final int MIN = 0;
     private static final int MAX = 9;
     private static final String DUPLICATED_NAME_MESSAGE = "[ERROR] 중복된 이름이 있습니다";
-    private final List<Car> cars = new ArrayList<>();
+    private final List<Car> cars;
 
     public Cars(String carNames) {
-
         String[] carNameArray = reduceBlank(carNames).split(DELIMITER);
         validateDuplicatedName(carNameArray);
+        List<Car> cars = new ArrayList<>();
         for (String carName : carNameArray) {
             cars.add(new Car(carName));
+        }
+        this.cars = cars;
+    }
+
+    private void validateDuplicatedName(String[] carNames) {
+        long distinctSize = Arrays.stream(carNames)
+                .distinct()
+                .count();
+        if (distinctSize != carNames.length) {
+            throw new IllegalArgumentException(DUPLICATED_NAME_MESSAGE);
         }
     }
 
@@ -41,13 +51,6 @@ public class Cars {
             sb.append(car.toString()).append(lineSeparator());
         }
         return sb.toString();
-    }
-
-    private void validateDuplicatedName(String[] carNames) {
-        long distinctSize = Arrays.stream(carNames).distinct().count();
-        if (distinctSize != carNames.length) {
-            throw new IllegalArgumentException(DUPLICATED_NAME_MESSAGE);
-        }
     }
 
     private String reduceBlank(String string) {
