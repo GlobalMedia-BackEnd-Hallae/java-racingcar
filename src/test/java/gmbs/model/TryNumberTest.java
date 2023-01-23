@@ -2,15 +2,18 @@ package gmbs.model;
 
 import static org.assertj.core.api.Assertions.*;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class TryNumberTest {
-    @Test
-    void 정상_시도횟수() {
+
+    @ParameterizedTest
+    @ValueSource(strings = {"0", "1"})
+    @DisplayName("생성 성공")
+    public void success(String string) {
         // given
-        TryNumber tryNumber = new TryNumber("1");
+        TryNumber tryNumber = new TryNumber(string);
 
         // when
         // then
@@ -18,8 +21,9 @@ class TryNumberTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"aaa", "-1"})
-    void 생성_예외(String tryNumberString) {
-        assertThatThrownBy(() -> new TryNumber(tryNumberString)).isInstanceOf(IllegalArgumentException.class);
+    @ValueSource(strings = {"aaa", "-1", "1001"})
+    @DisplayName("생성 실패")
+    public void failed(String tryCountString) {
+        assertThatThrownBy(() -> new TryNumber(tryCountString)).isInstanceOf(IllegalArgumentException.class);
     }
 }
