@@ -4,11 +4,11 @@ public class Car {
     private static final int MOVING_DISTANCE = 1;
     private static final int FORWARD_NUMBER = 4;
 
-    private final Name name;
+    private final String name;
     private final Position position;
 
-    public Car(String nameString) {
-        this.name = new Name(nameString);
+    public Car(final String name) {
+        this.name = name;
         this.position = new Position();
     }
 
@@ -19,11 +19,11 @@ public class Car {
     }
 
     public String getName() {
-        return this.name.toString();
+        return this.name;
     }
 
     public int getPosition() {
-        return this.position.toInt();
+        return this.position.value();
     }
 
     @Override
