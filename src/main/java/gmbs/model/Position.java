@@ -14,12 +14,12 @@ public class Position {
         this.position += distance;
     }
 
-    public int toInt() {
+    public int value() {
         return this.position;
     }
 
     @Override
     public String toString() {
-        return ROAD.repeat(Math.max(0, this.position));
+        return ROAD.repeat(this.position);
     }
 }
