@@ -16,18 +16,22 @@ class CarStatusCreateTest {
 
     @Test
     @DisplayName("조건에 어긋나는 문자열을 입력해서 오류가 나는지 테스트")
-    void canCarCheckError() {
+    void canCheckCarError() {
         // given
-        List<String> wrongInput = Arrays.asList("abcde", "abcdef", "abcd");
+        List<String> longCarNameInput = Arrays.asList("abcde", "abcdef", "abcd");
+        List<String> shortCarNameInput = Arrays.asList("", "abcdef", "abcd");
 
         // when, then
-        assertThatThrownBy(() -> carStatusCreate.createCarStatus(wrongInput))
+        assertThatThrownBy(() -> carStatusCreate.createCarStatus(longCarNameInput))
+                .isInstanceOf(IllegalStateException.class);
+
+        assertThatThrownBy(() -> carStatusCreate.createCarStatus(shortCarNameInput))
                 .isInstanceOf(IllegalStateException.class);
     }
 
     @Test
     @DisplayName("조건에 맞는 문자열 입력해서 잘 돌아가는지 테스트")
-    void canCarCreateRightStatus() {
+    void canCreateRightCarStatus() {
         // given
         List<String> rightInput = Arrays.asList("pobi", "woni", "jun");
 
