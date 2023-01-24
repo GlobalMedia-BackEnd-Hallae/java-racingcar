@@ -6,7 +6,8 @@ import java.util.List;
 
 import gmbs.util.RandomGenerator;
 
-import static java.lang.System.lineSeparator;
+import static gmbs.util.StringUtils.splitByDelimiter;
+import static gmbs.util.StringUtils.stripStringArray;
 
 public class Cars {
     private static final String DELIMITER = ",";
@@ -16,9 +17,9 @@ public class Cars {
     private final List<Car> cars;
 
     public Cars(String carNames) {
-        String[] carNameArray = reduceBlank(carNames).split(DELIMITER);
-        validateDuplicatedName(carNameArray);
+        String[] carNameArray = stripStringArray(splitByDelimiter(carNames, DELIMITER));
         List<Car> cars = new ArrayList<>();
+        validateDuplicatedName(carNameArray);
         for (String carName : carNameArray) {
             cars.add(new Car(carName));
         }
@@ -44,16 +45,7 @@ public class Cars {
         return new Winners(cars);
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (Car car : cars) {
-            sb.append(car.toString()).append(lineSeparator());
-        }
-        return sb.toString();
-    }
-
-    private String reduceBlank(String string) {
-        return string.replace(" ", "");
+    public List<Car> getCars() {
+        return cars;
     }
 }
