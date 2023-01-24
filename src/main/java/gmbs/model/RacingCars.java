@@ -1,9 +1,6 @@
 package gmbs.model;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class RacingCars {
@@ -17,22 +14,16 @@ public class RacingCars {
         }
     }
 
-    private void headPositionUpdate(int position) {
-        if (position >= headPositionValue) {
-            headPositionValue = position;
-        }
-    }
-
     public void updateStatus(NumberGenerator generator) {
         for (Car car : cars) {
             int num = generator.generate();
             car.moveByCondition(num);
-            headPositionUpdate(car.carPosition());
         }
     }
 
     private List<Car> getHeadPositionCars() {
-        return cars.stream().filter(car -> car.carPosition() == headPositionValue).collect(Collectors.toList());
+        int maxPosition = cars.stream().max(Comparator.comparingInt(Car::carPosition)).get().carPosition();
+        return cars.stream().filter(car -> car.carPosition() == maxPosition).collect(Collectors.toList());
     }
 
     public List<String> getHeadPositionNames() {

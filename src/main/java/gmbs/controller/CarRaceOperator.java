@@ -10,23 +10,31 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CarRaceOperator {
-
-    private static final Display display = new Display();
-    private static final UserInput userInput = new UserInput();
     private static final String SPLIT_VALUE = ",";
+    private static final Display display = new Display();
+
+    private static final UserInput userInput = new UserInput();
     private static final RandomNumberGenerator generator = new RandomNumberGenerator(0, 9);
 
     private RacingCars racingCars;
 
-    private int scanRepetition() {
-        int repetition;
+    public void operate() {
+        display.showStartDisplay();
+        registerCars();
+        display.showRepeatDisplay();
+        repeatRace(scanRepetition());
+        display.showWinners(racingCars.getHeadPositionNames());
+    }
+
+    private RepetitionNumber scanRepetition() {
+        RepetitionNumber reps;
         try {
-            repetition = Integer.parseInt(new RepetitionNumber(userInput.userInput()).number());
+            reps = new RepetitionNumber(userInput.userInput());
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            repetition = scanRepetition();
+            reps = scanRepetition();
         }
-        return repetition;
+        return reps;
     }
 
     private List<String> splitInput(String userInput) {
@@ -53,18 +61,10 @@ public class CarRaceOperator {
         }
     }
 
-    private void repeatRace(int repetition) {
-        for (int i = 0; i < repetition; i++) {
+    private void repeatRace(RepetitionNumber reps) {
+        for (int i = 0; i < reps.number(); i++) {
             racingCars.updateStatus(generator);
             display.showStatus(racingCars.getCurrentCarsStatus());
         }
-    }
-
-    public void operate() {
-        display.showStartDisplay();
-        registerCars();
-        display.showRepeatDisplay();
-        repeatRace(scanRepetition());
-        display.showWinners(racingCars.getHeadPositionNames());
     }
 }

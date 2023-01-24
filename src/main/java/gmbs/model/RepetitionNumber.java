@@ -16,7 +16,7 @@ public class RepetitionNumber {
         }
     }
 
-    public String number() {
-        return repetition;
+    public int number() {
+        return Integer.parseInt(repetition);
     }
 }
