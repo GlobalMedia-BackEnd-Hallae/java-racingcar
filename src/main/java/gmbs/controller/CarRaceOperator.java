@@ -1,54 +1,54 @@
 package gmbs.controller;
 
+import gmbs.model.CarName;
 import gmbs.model.RacingCars;
 import gmbs.model.RandomNumberGenerator;
 import gmbs.model.RepetitionNumber;
 import gmbs.view.Display;
 import gmbs.view.UserInput;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class CarRaceOperator {
-    private static final String SPLIT_VALUE = ",";
+
     private static final Display display = new Display();
-
     private static final UserInput userInput = new UserInput();
-
-    private RacingCars racingCars;
 
     public void operate() {
         display.showStartDisplay();
-        registerCars();
+        RacingCars cars = registerCars(requestCarNames());
         display.showRepeatDisplay();
-        repeatRace(scanRepetition());
-        display.showWinners(racingCars.getHeadPositionNames());
+        repeatRace(cars, scanRepetition());
+        display.showWinners(cars.getHeadPositionNames());
     }
 
-    private void registerCars() {
+    private RacingCars registerCars(List<CarName> carNames) {
+        return new RacingCars(carNames);
+    }
+
+    private List<CarName> requestCarNames() {
+        List<CarName> carNames = new ArrayList<>();
         try {
-            racingCars = new RacingCars(requestCarNames());
+            splitInput(userInput.userInput(), ",").forEach(name -> carNames.add(new CarName(name)));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            registerCars();
+            return requestCarNames();
         }
-    }
-
-    private List<String> requestCarNames() {
-        List<String> carNames;
-        carNames = splitInput(userInput.userInput());
         return carNames;
     }
 
-    private List<String> splitInput(String userInput) {
-        return Arrays.asList(userInput.split(SPLIT_VALUE));
+    private List<String> splitInput(String userInput, String regex) {
+        return Arrays.asList(userInput.split(regex));
     }
 
-    private void repeatRace(RepetitionNumber reps) {
+    private RacingCars repeatRace(RacingCars cars, RepetitionNumber reps) {
         for (int i = 0; i < reps.number(); i++) {
-            racingCars.updateStatus(new RandomNumberGenerator());
-            display.showStatus(racingCars.getCurrentCarsStatus());
+            cars.updateStatus(new RandomNumberGenerator());
+            display.showStatus(cars.getCurrentCarsStatus());
         }
+        return cars;
     }
 
     private RepetitionNumber scanRepetition() {

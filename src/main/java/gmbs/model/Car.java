@@ -11,6 +11,10 @@ public class Car {
         this.carName = new CarName(name);
     }
 
+    public Car(CarName carName) {
+        this.carName = carName;
+    }
+
     public void moveByCondition(int givenNumber) {
         if (givenNumber >= MOVE_THRESHOLD) {
             position += TRAVEL_DISTANCE_UNIT;
