@@ -35,12 +35,12 @@ public class RacingController {
         OutputView.printStartMessage();
         while (tryCount.isNotSame(nowTryCnt++)) {
             cars.moveAll();
-            OutputView.printString(cars.toString());
+            OutputView.printCarsStatus(cars.getCars());
         }
     }
 
     private void terminate() {
-        OutputView.printString(cars.toString());
-        OutputView.printString(cars.getWinners().toString());
+        OutputView.printCarsStatus(cars.getCars());
+        OutputView.printWinners(cars.getWinners());
     }
 }
