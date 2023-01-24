@@ -9,22 +9,22 @@ public class Name {
     private final String name;
 
     public Name(String name) {
+        validate(name);
         this.name = name;
-        validate();
     }
 
-    private void validate() {
-        validateNotBlank();
-        validateLength();
+    private void validate(String name) {
+        validateNotBlank(name);
+        validateLength(name);
     }
 
-    private void validateNotBlank() {
+    private void validateNotBlank(String name) {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException(EMPTY_NAME_MESSAGE);
         }
     }
 
-    private void validateLength() {
+    private void validateLength(String name) {
         if (name.length() > MAX_LENGTH) {
             throw new IllegalArgumentException(LONG_NAME_MESSAGE);
         }
