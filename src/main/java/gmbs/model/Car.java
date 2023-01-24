@@ -25,9 +25,4 @@ public class Car {
     public int getPosition() {
         return this.position.value();
     }
-
-    @Override
-    public String toString() {
-        return name + " : " + position;
-    }
 }
