@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 public class RacingCars {
 
     private final List<Car> cars = new ArrayList<>();
-    private int headPositionValue;
 
     public RacingCars(List<String> carNames) {
         for (String name : carNames) {
@@ -22,8 +21,13 @@ public class RacingCars {
     }
 
     private List<Car> getHeadPositionCars() {
-        int maxPosition = cars.stream().max(Comparator.comparingInt(Car::carPosition)).get().carPosition();
-        return cars.stream().filter(car -> car.carPosition() == maxPosition).collect(Collectors.toList());
+        int maxPosition = cars.stream()
+                .max(Comparator.comparingInt(Car::carPosition))
+                .get()
+                .carPosition();
+        return cars.stream()
+                .filter(car -> car.carPosition() == maxPosition)
+                .collect(Collectors.toList());
     }
 
     public List<String> getHeadPositionNames() {
