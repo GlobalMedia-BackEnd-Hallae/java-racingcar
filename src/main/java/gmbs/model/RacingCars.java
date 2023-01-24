@@ -15,7 +15,7 @@ public class RacingCars {
 
     public void updateStatus(NumberGenerator generator) {
         for (Car car : cars) {
-            int num = generator.generate();
+            int num = generator.generate(0, 9);
             car.moveByCondition(num);
         }
     }
