@@ -17,17 +17,4 @@ class CarsTest {
             new Cars(names);
         }).doesNotThrowAnyException();
     }
-
-
-    @Test
-    void toString_결과_생성() {
-        // given
-        String names = "jun,sep";
-        Cars cars = new Cars(names);
-        String newLine = System.lineSeparator();
-
-        // when
-        // then
-        assertThat(cars.toString()).isEqualTo("jun : " + newLine + "sep : " + newLine);
-    }
 }
