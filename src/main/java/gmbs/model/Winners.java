@@ -1,6 +1,5 @@
 package gmbs.model;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,9 +7,10 @@ public class Winners {
     private static final int MIN_POSITION = 0;
 
     private final List<Car> winners;
+    private final int maxPosition;
 
     public Winners(List<Car> cars) {
-        int maxPosition = getMaxPosition(cars);
+        maxPosition = getMaxPosition(cars);
         winners = cars.stream()
                 .filter(car -> car.getPosition() == maxPosition)
                 .collect(Collectors.toList());
@@ -23,13 +23,13 @@ public class Winners {
                 .orElse(MIN_POSITION);
     }
 
-    @Override
-    public String toString() {
-        List<String> names = new ArrayList<>();
-        for (Car winner : winners) {
-            names.add(winner.getName());
-        }
+    public int getMaxPosition() {
+        return maxPosition;
+    }
 
-        return String.join(", ", names) + "가 최종 우승했습니다.";
+    public List<String> getNames() {
+        return winners.stream()
+                .map(Car::getName)
+                .collect(Collectors.toList());
     }
 }
