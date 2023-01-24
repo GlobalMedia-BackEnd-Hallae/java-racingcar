@@ -10,7 +10,7 @@ class CarTest {
 
     @ParameterizedTest
     @DisplayName("4 이상의 수를 넣으면 carposition에 1이 더해진다")
-    @CsvSource(value = {"4, 0", "5, 1"})
+    @CsvSource(value = {"4, 1", "3, 0"})
     void moveByCondition(int input, int expectedPositionDifference) {
         Car testCar = new Car("test");
         int originPosition = testCar.carPosition();

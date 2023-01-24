@@ -2,7 +2,7 @@ package gmbs.model;
 
 public class Car {
 
-    private static final int DO_NOTHING_THRESHOLD = 4;
+    private static final int MOVE_THRESHOLD = 4;
     private static final int TRAVEL_DISTANCE_UNIT = 1;
     private final CarName carName;
     private int position = 0;
@@ -12,7 +12,7 @@ public class Car {
     }
 
     public void moveByCondition(int givenNumber) {
-        if (givenNumber > DO_NOTHING_THRESHOLD) {
+        if (givenNumber >= MOVE_THRESHOLD) {
             position += TRAVEL_DISTANCE_UNIT;
         }
     }
