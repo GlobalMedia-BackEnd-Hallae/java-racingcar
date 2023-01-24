@@ -14,7 +14,6 @@ public class CarRaceOperator {
     private static final Display display = new Display();
 
     private static final UserInput userInput = new UserInput();
-    private static final RandomNumberGenerator generator = new RandomNumberGenerator(0, 9);
 
     private RacingCars racingCars;
 
@@ -26,32 +25,6 @@ public class CarRaceOperator {
         display.showWinners(racingCars.getHeadPositionNames());
     }
 
-    private RepetitionNumber scanRepetition() {
-        RepetitionNumber reps;
-        try {
-            reps = new RepetitionNumber(userInput.userInput());
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            reps = scanRepetition();
-        }
-        return reps;
-    }
-
-    private List<String> splitInput(String userInput) {
-        return Arrays.asList(userInput.split(SPLIT_VALUE));
-    }
-
-    private List<String> requestCarNames() {
-        List<String> carNames;
-        try {
-            carNames = splitInput(userInput.userInput());
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            carNames = requestCarNames();
-        }
-        return carNames;
-    }
-
     private void registerCars() {
         try {
             racingCars = new RacingCars(requestCarNames());
@@ -61,10 +34,31 @@ public class CarRaceOperator {
         }
     }
 
+    private List<String> requestCarNames() {
+        List<String> carNames;
+        carNames = splitInput(userInput.userInput());
+        return carNames;
+    }
+
+    private List<String> splitInput(String userInput) {
+        return Arrays.asList(userInput.split(SPLIT_VALUE));
+    }
+
     private void repeatRace(RepetitionNumber reps) {
         for (int i = 0; i < reps.number(); i++) {
-            racingCars.updateStatus(generator);
+            racingCars.updateStatus(new RandomNumberGenerator());
             display.showStatus(racingCars.getCurrentCarsStatus());
         }
+    }
+
+    private RepetitionNumber scanRepetition() {
+        RepetitionNumber reps;
+        try {
+            reps = new RepetitionNumber(userInput.userInput());
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            reps = scanRepetition();
+        }
+        return reps;
     }
 }

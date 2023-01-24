@@ -5,6 +5,8 @@ import java.util.stream.Collectors;
 
 public class RacingCars {
 
+    private static final int GENERATE_NUMBER_RANGE_START = 0;
+    private static final int GENERATE_NUMBER_RANGE_END = 9;
     private final List<Car> cars = new ArrayList<>();
 
     public RacingCars(List<String> carNames) {
@@ -15,7 +17,7 @@ public class RacingCars {
 
     public void updateStatus(NumberGenerator generator) {
         for (Car car : cars) {
-            int num = generator.generate(0, 9);
+            int num = generator.generate(GENERATE_NUMBER_RANGE_START, GENERATE_NUMBER_RANGE_END);
             car.moveByCondition(num);
         }
     }
@@ -39,7 +41,7 @@ public class RacingCars {
     }
 
     public Map<String, Integer> getCurrentCarsStatus() {
-        LinkedHashMap<String, Integer> currentStatus = new LinkedHashMap<>();
+        Map<String, Integer> currentStatus = new LinkedHashMap<>();
         for (Car car : cars) {
             currentStatus.put(car.carName(), car.carPosition());
         }
