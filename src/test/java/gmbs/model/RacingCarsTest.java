@@ -10,7 +10,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class RacingCarsTest {
 
-    private final List<String> names = Arrays.asList("레드불", "페라리", "메르세데스");
+    private final List<CarName> names = Arrays.asList(new CarName("레드불"), new CarName("페라리"), new CarName("메르세데스"));
     private final int[] generatedNumbers = {5, 6, 3};
     private final RacingCars cars = new RacingCars(names);
     private int index = 0;
