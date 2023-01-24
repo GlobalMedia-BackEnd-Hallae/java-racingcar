@@ -18,7 +18,7 @@ class CarNameTest {
 
     @ParameterizedTest
     @DisplayName("이름에 공백이 있으면 예외가 발생하는지 확인한다")
-    @ValueSource(strings = {" ", "1 6", "1234"})
+    @ValueSource(strings = {" ", "1 6", "1234 "})
     void CarName_ExceptionByBlank(String name) {
         assertThatThrownBy(() -> new CarName(name))
                 .isInstanceOf(IllegalArgumentException.class).hasMessage("[Error] 공백 금지");
