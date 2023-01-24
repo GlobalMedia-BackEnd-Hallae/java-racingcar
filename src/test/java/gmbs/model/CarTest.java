@@ -7,6 +7,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 class CarTest {
+
+    private static final String DUPLICATED_NAME_MESSAGE = "[ERROR] 중복된 이름이 있습니다";
+
     @Test
     void 자동차_생성() {
         // given
@@ -44,14 +47,15 @@ class CarTest {
     }
 
     @Test
-    void toString_체크() {
+    void 중복_체크() {
         // given
-        Car car = new Car("test");
+        String names = "jun,jun";
 
         // when
-        car.move(6);
-
         // then
-        assertThat(car.toString()).isEqualTo("test : -");
+        assertThatThrownBy(() -> new Cars(names))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(DUPLICATED_NAME_MESSAGE);
+
     }
 }
