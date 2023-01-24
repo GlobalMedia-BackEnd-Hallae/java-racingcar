@@ -35,7 +35,7 @@ class NameTest {
 
     @Test
     @DisplayName("자동차의 이름이 중복될 경우 에러를 발생시킨다.")
-    void testOverrapingNames() {
+    void checkValidateName_ValidNameDuplication() {
         // given
         String names = "kim,kim,jun";
 
@@ -48,7 +48,7 @@ class NameTest {
 
     @DisplayName("5자가 넘는 자동차 이름이 들어오면 예외를 발생시킨다")
     @Test
-    void testOverLengthName() {
+    void checkValidateName_ValidNameLength() {
         // when, then
         assertThatThrownBy(() -> new Name("kimjunseop"))
                 .isInstanceOf(IllegalArgumentException.class)
@@ -57,7 +57,7 @@ class NameTest {
 
     @Test
     @DisplayName("빈 문자열을 입력했을 경우 에러를 발생시킨다.")
-    void testBlankInput() {
+    void checkValidateName_ValidNameBlank() {
         // when, then
         assertThatThrownBy(() -> new Name(" "))
                 .isInstanceOf(IllegalArgumentException.class)
