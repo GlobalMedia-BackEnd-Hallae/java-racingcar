@@ -9,12 +9,6 @@ public class RacingCars {
     private static final int GENERATE_NUMBER_RANGE_END = 9;
     private final List<Car> cars = new ArrayList<>();
 
-//    public RacingCars(List<String> carNames) {
-//        for (String name : carNames) {
-//            cars.add(new Car(name));
-//        }
-//    }
-
     public RacingCars(List<CarName> carNames) {
         for (CarName carName : carNames) {
             cars.add(new Car(carName));
